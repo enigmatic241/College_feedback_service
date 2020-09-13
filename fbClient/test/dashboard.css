@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+    scroll-behavior: smooth;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.divNavbar{
+    font-size: 2vw;
+    position: relative;
+    width: 100%;
+    height: 8%;
+    background-color: rgb(10, 179, 179);
+}
+
+.divNavbar a{
+    cursor: auto;
+}
+
+.navIcon {
+	height: 100%;
+	width: 75px;
+	float: left;
+	/* background: url(assets/img/logo_IIITL.png); */
+}
+
+.navExt {
+	height: 100%;
+	float: left;
+	margin-left: 10px;
+}
+
+.divContain {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	height: 90%;
+	/* left: calc(100% - width/2); */
+	/* left: 20%; */
+	/* align-items:center; */
+	justify-content:center;
+}
+
+.divLists {
+	background-color: rgb(182, 214, 255);
+	margin: 5% 0 0 5%;
+	width: 100%;
+	height: 100%;
+	justify-content:center;
+}

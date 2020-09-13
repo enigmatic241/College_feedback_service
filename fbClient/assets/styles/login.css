@@ -1,0 +1,83 @@
+body{
+    margin: 0;
+    scroll-behavior: smooth;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.divNavbar{
+    font-size: 2vw;
+    position: relative;
+    width: 100%;
+    height: 8%;
+    background-color: rgb(10, 179, 179);
+}
+
+.divNavbar a{
+    cursor: auto;
+}
+
+.navIcon {
+	height: 100%;
+	width: 75px;
+	float: left;
+	/* background: url(assets/img/logo_IIITL.png); */
+}
+
+.navExt {
+	height: 100%;
+	float: left;
+	margin-left: 10px;
+}
+
+.container-fluid {
+	background-color: #1d2636;
+}
+
+.divContain {
+	display: flex;
+	/* flex-direction: column; */
+	width: 100%;
+	height: 80%;
+	/* left: calc(100% - width/2); */
+	/* left: 20%; */
+	/* align-items:center; */
+	vertical-align: middle;
+	align-items: center;
+	justify-content:center;
+}
+
+#customBtn {
+	display: inline-block;
+	/* background: #4285F4; */
+	color: #444;
+	width: 190px;
+	border-radius: 5px;
+	border: thin solid #888;
+	box-shadow: 1px 1px 1px grey;
+	white-space: nowrap;
+}
+
+#customBtn:hover {
+	cursor: pointer;
+}
+span.label {
+	font-family: serif;
+	font-weight: normal;
+}
+span.icon {
+	background: url('../img/btn_google_signin_light_normal_web.png') transparent 0px 50% no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+	width: 42px;
+	height: 42px;
+}
+span.buttonText {
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 42px;
+	padding-right: 42px;
+	font-size: 14px;
+	font-weight: bold;
+	/* Use the Roboto font that is loaded in the <head> */
+	font-family: 'Roboto', sans-serif;
+    }
