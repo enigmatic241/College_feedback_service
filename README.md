@@ -1,7 +1,6 @@
 # College_feedback_service
 
 ## Set up the database
-
 ```bash
 cd db
 ```
