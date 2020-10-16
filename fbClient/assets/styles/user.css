@@ -147,8 +147,6 @@ select {
 	float: left;
 	height: 100%;
 	width: 5%;
-	z-index: 555;
-	/* background-color: aqua; */
 }
 
 .divCompCat {
@@ -166,7 +164,7 @@ select {
 .divCompDesc {
 	float: left;
 	height: 100%;
-	width: 55%;
+	width: 60%;
 }
 
 .divCompStatus {

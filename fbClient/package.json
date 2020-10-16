@@ -4,8 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "parcel login.html --port 3000",
-		"build": "parcel build login.html"
+		"dev": "parcel home.html --port 3000",
+		"build": "parcel build home.html"
 	},
 	"author": "",
 	"license": "ISC",

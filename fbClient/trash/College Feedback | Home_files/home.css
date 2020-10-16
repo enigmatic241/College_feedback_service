@@ -147,8 +147,6 @@ select {
 	float: left;
 	height: 100%;
 	width: 5%;
-	z-index: 555;
-	/* background-color: aqua; */
 }
 
 .divCompCat {
@@ -278,3 +276,5 @@ select {
 .page-footer span {
 	color: var(--red);
 }
+
+/*# sourceMappingURL=/home.f3a66d6a.css.map */

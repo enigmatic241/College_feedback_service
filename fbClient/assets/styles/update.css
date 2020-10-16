@@ -40,7 +40,69 @@ body{
 	background: var(--page-content-bgColor);
 }
 
-.divForm {
+#divRollTotalContainer {
+	display: grid;
+	grid-template-rows: auto;
+	grid-row-gap: 40px;
+	margin: 5%;
+	width: 90%;
+	font-size: 16px;
+}
+
+.divRollContainer {
+	display: grid;
+	grid-template-columns: 20% 30% 30% 10% 10%;
+	/* margin-top: 20px;
+	margin-bottom: 20px; */
+	grid-column-gap: 10px;
+	/* grid-row-gap: 30px; */
+	/* font-size: 16px; */
+}
+
+.divRoll {
+	overflow-x: scroll;
+}
+
+.txtRollEmail {
+	padding: 10px;
+	font-size: 16px;
+}
+
+.txtNewRollEmail {
+	padding: 10px;
+	font-size: 16px;
+	/* margin-right: 20px; */
+}
+
+.btnRollUpdate {
+	background: #242e42;
+	color: #f0f1f6;
+	border: 1px solid #242e42;
+	padding: 10px;
+	/* font-size: 16px; */
+}
+
+.btnRollAdd {
+	background: #242e42;
+	color: #f0f1f6;
+	border: 1px solid #242e42;
+	padding: 10px;
+	/* font-size: 16px; */
+}
+
+.btnRollUpdate:active {
+	background: #1d2636;
+	color: #00b9eb;
+	/* font-size: 16px; */
+}
+
+.btnRollAdd:active {
+	background: #1d2636;
+	color: #00b9eb;
+	/* font-size: 16px; */
+}
+
+/* .divForm {
 	float: left;
 	margin: 5%;
 	float: left;
@@ -64,8 +126,6 @@ body{
 }
 
 select {
-	/* margin: 50px; */
-	/* padding: 5px 35px 5px 5px; */
 	width: 100%;
 	font-size: 16px;
 	background-color: #008CBA;
@@ -90,15 +150,4 @@ select {
 #btnSubmit:hover {
 	background-color: #008CBA;
 	color: white;
-}
-
-#feedback{
-	resize:none;
-	font-size: 16px;
-	box-shadow: gray;
-	/* float: right; */
-	display:grid;	
-	/* margin:auto; */
-	margin-top: 50px;
-	border-bottom: black;
-}
+} */

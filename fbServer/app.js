@@ -49,7 +49,9 @@ con.connect(function(err) {
         else if (req.query.reqType == "getComp") {
             if (err) throw err;
             // var sql = "SELECT * FROM complaint GROUP BY compstatus";
-            var sql = "SELECT * FROM complaint";
+            var sql = "SELECT complaint.*, subcategory.*, category.* FROM complaint, subcategory, category ";
+            sql += "WHERE complaint.subcatId = subcategory.subcatId AND complaint.catId = subcategory.catId AND ";
+            sql += "category.catId = subcategory.catId";
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log(result);

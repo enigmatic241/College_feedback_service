@@ -1,13 +1,13 @@
 import axios from 'axios';
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import { async } from 'regenerator-runtime/runtime';
 import Swal from 'sweetalert2';
 
 var loginStatus;
 var loginProfile;
 
 const getDBData = async (options) => {
-	// console.log(options);
 	if (options.reqType == "getCat") {
 		axios.get('http://127.0.0.1:8080', {
 			params: {
@@ -20,46 +20,7 @@ const getDBData = async (options) => {
 			.catch((err) => {
 				throw new Error(err);
 			});
-	}
-	else if (options.reqType == "submitComplaint") {
-		var catSelected = document.getElementById("slctCat").value;
-		var subcatSelected = document.getElementById("slctSubcat").value;
-		var txtHostel = document.getElementById("txtHostel");
-		var txtFloor = document.getElementById("txtFloor");
-		var txtRoom = document.getElementById("txtRoom");
-		var txtDiscrip = document.getElementById("txtDiscrip");
-		var description = "";
-		if (txtHostel.value != "") description += "Hostel: " + txtHostel.value;
-		if (txtFloor.value != "") description += " Floor: " + txtFloor.value;
-		if (txtRoom.value != "") description += " Room: " + txtRoom.value;
-		if (txtDiscrip.value != "") description += " " + txtDiscrip.value;
-		console.log(description);
-		axios.get('http://127.0.0.1:8080', {
-			params: {
-				reqType: "submitcomplaint",
-				catId: catSelected,
-				subcatId: subcatSelected,
-				description: description
-			}
-			})
-			.then(function (response) {
-				
-			})
-			.catch((err) => {
-				throw new Error(err);
-			});
-		Swal.fire({
-			title: 'Complaint submitted',
-			text: 'Your complaint will be addressed in approx hrs',
-			icon: 'success',
-			confirmButtonText: `Save`
-		}).then((result) => {
-			if (result.isConfirmed) {
-				window.location.replace("home.html");
-			}
-		});
-	}
-	else if (options.reqType == "getSubcat") {
+	}else if (options.reqType == "getSubcat") {
 		var catSelected = document.getElementById("slctCat").value;
 		axios.get('http://127.0.0.1:8080', {
 			params: {
@@ -74,8 +35,84 @@ const getDBData = async (options) => {
 				throw new Error(err);
 			});
 	}
-	// console.log(options.target.value);
+	else if (options.reqType == "getComp") {
+		axios.get('http://127.0.0.1:8080', {
+			params: {
+				reqType: "getComp"
+			}
+			})
+			.then(function (response) {
+				populateList(response.data, "complaint");
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
+	}
+	else if (options.reqType == "getFb") {
+		axios.get('http://127.0.0.1:8080', {
+			params: {
+				reqType: "getFb",
+				categoryName: categorySelected
+			}
+			})
+			.then(function (response) {
+				populateList(response.data, "feedback");
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
+	}
 };
+
+const createCompItem = item => {
+	// <div class="divComplaintItem">
+	// 	<div class="divCompCat">Hostel</div>
+	// 	<div class="divCompSubcat">Light</div>
+	// 	<div class="divCompDesc">Room: 3523 Floor: 5 Needs cleaning</div>
+	// </div>
+	console.log(item);
+	const divComplaintItem = document.createElement('div');
+	divComplaintItem.className = "divComplaintItem";
+	const divCompCat = document.createElement('div');
+	divCompCat.className = "divCompCat";
+	divCompCat.innerHTML = item.catId;
+	const divCompSubcat = document.createElement('div');
+	divCompSubcat.className = "divCompSubcat";
+	divCompSubcat.innerHTML = item.subcatId;
+	const divCompDesc = document.createElement('div');
+	divCompDesc.className = "divCompDesc";
+	divCompDesc.innerHTML = item.compDesc;
+	const divCompStatus = document.createElement('div');
+	divCompStatus.className = "divCompStatus";
+	if (item.compStatus == 1)
+		divCompStatus.innerHTML = "Overtime";
+	if (item.compStatus == 2)
+		divCompStatus.innerHTML = "Unresolved";
+	if (item.compStatus == 3)
+		divCompStatus.innerHTML = "Resolved";
+	divComplaintItem.appendChild(divCompCat);
+	divComplaintItem.appendChild(divCompSubcat);
+	divComplaintItem.appendChild(divCompDesc);
+	divComplaintItem.appendChild(divCompStatus);
+	return divComplaintItem;
+};
+
+const populateList = (list, selectType) => {
+	// console.log(categoryList);
+	if (selectType == "complaint") {
+		const divComplaints = document.getElementById("divComplaints");
+
+		if (Array.isArray(list) && list.length > 0) {
+			list.map(category => {
+				divComplaints.appendChild(createCompItem(category));
+			});
+		} else if (list) {
+			divComplaints.appendChild(createCompItem(list));
+		}
+	}
+	else if (selectType == "subcategory") {
+	}
+}
 
 const createCatOption = item => {
 	const option = document.createElement('option');
@@ -100,7 +137,7 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctCat.appendChild(createCatOption(category));
 			});
-			slctCat.appendChild(createCatOption({catDesc: "Other"}));
+			slctCat.appendChild(createCatOption("Other"));
 		} else if (categoryList) {
 			slctCat.appendChild(createCatOption(categoryList));
 		}
@@ -113,17 +150,12 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctSubcat.appendChild(createSubcatOption(category));
 			});
-			slctSubcat.appendChild(createSubcatOption({subcatDesc: "Other"}));
+			slctSubcat.appendChild(createSubcatOption("Other"));
 		} else if (categoryList) {
 			slctSubcat.appendChild(createSubcatOption(categoryList.subcatDesc));
 		}
 	}
 };
-
-const validateData = () => {
-	// Validation not complete
-	getDBData({reqType: "submitComplaint"});
-}
 
 const getSubcat = async () => {
 	await getDBData({reqType: "getSubcat"});
@@ -140,16 +172,6 @@ var userChanged = function (user) {
 	initGUI();
 };
 
-function signOut() {
-	console.log("signout");
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-		console.log('User signed out.');
-		loginStatus = false;
-		window.location.replace("login.html");
-    });
-}
-
 const init = () => {
 	var auth2;
 	gapi.load('auth2', function(){
@@ -160,18 +182,29 @@ const init = () => {
 	});
 };
 
+function signOut() {
+	console.log("signout");
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+		console.log('User signed out.');
+		loginStatus = false;
+		window.location.replace("login.html");
+    });
+}
+
 const initGUI = () => {
 	document.getElementById("slctCat").addEventListener("change", getSubcat);
 	console.log(loginStatus);
 	if (loginStatus) {
-		document.getElementById("slctCat").reqType = "getSubcat";
-		document.getElementById("slctCat").addEventListener("change", getSubcat);
+		divGreeting = document.getElementById("divGreeting");
+		divGreeting.innerHTML += loginProfile.getName().substring(0, 8);
 		document.getElementById("sign-out").addEventListener("click", signOut);
-		document.getElementById("btnSubmit").addEventListener("click", validateData);
 		getDBData({reqType: "getCat"});
+		getDBData({reqType: "getComp"});
 		// await getDBData({reqType: "getFb"});
 	}
 	else {
+		window.location.replace("login.html");
 		// Swal.fire({
 		// 	title: 'Inactive login',
 		// 	text: 'Please login to view this page',
@@ -182,7 +215,6 @@ const initGUI = () => {
 		// 		window.location.replace("login.html");
 		// 	}
 		// });
-		window.location.replace("login.html");
 	}
 }
 

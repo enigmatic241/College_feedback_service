@@ -100,7 +100,7 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctCat.appendChild(createCatOption(category));
 			});
-			slctCat.appendChild(createCatOption({catDesc: "Other"}));
+			slctCat.appendChild(createCatOption("Other"));
 		} else if (categoryList) {
 			slctCat.appendChild(createCatOption(categoryList));
 		}
@@ -113,7 +113,7 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctSubcat.appendChild(createSubcatOption(category));
 			});
-			slctSubcat.appendChild(createSubcatOption({subcatDesc: "Other"}));
+			slctSubcat.appendChild(createSubcatOption("Other"));
 		} else if (categoryList) {
 			slctSubcat.appendChild(createSubcatOption(categoryList.subcatDesc));
 		}
@@ -164,24 +164,10 @@ const initGUI = () => {
 	document.getElementById("slctCat").addEventListener("change", getSubcat);
 	console.log(loginStatus);
 	if (loginStatus) {
-		document.getElementById("slctCat").reqType = "getSubcat";
-		document.getElementById("slctCat").addEventListener("change", getSubcat);
-		document.getElementById("sign-out").addEventListener("click", signOut);
-		document.getElementById("btnSubmit").addEventListener("click", validateData);
-		getDBData({reqType: "getCat"});
+		
 		// await getDBData({reqType: "getFb"});
 	}
 	else {
-		// Swal.fire({
-		// 	title: 'Inactive login',
-		// 	text: 'Please login to view this page',
-		// 	icon: 'error',
-		// 	confirmButtonText: `Save`
-		// }).then((result) => {
-		// 	if (result.isConfirmed) {
-		// 		window.location.replace("login.html");
-		// 	}
-		// });
 		window.location.replace("login.html");
 	}
 }
