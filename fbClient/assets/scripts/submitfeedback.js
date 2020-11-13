@@ -21,25 +21,19 @@ const getDBData = async (options) => {
 				throw new Error(err);
 			});
 	}
-	else if (options.reqType == "submitComplaint") {
+	else if (options.reqType == "submitFeedback") {
 		var catSelected = document.getElementById("slctCat").value;
-		var subcatSelected = document.getElementById("slctSubcat").value;
-		var txtHostel = document.getElementById("txtHostel");
-		var txtFloor = document.getElementById("txtFloor");
-		var txtRoom = document.getElementById("txtRoom");
-		var txtDiscrip = document.getElementById("txtDiscrip");
-		var description = "";
-		if (txtHostel.value != "") description += "Hostel: " + txtHostel.value;
-		if (txtFloor.value != "") description += " Floor: " + txtFloor.value;
-		if (txtRoom.value != "") description += " Room: " + txtRoom.value;
-		if (txtDiscrip.value != "") description += " " + txtDiscrip.value;
-		console.log(description);
+		var txtSubject = document.getElementById("txtSubject");
+		var txtDescrip = document.getElementById("txtDiscrip");
+		console.log(txtSubject.value);
+		console.log(txtDescrip.value);
 		axios.get('http://127.0.0.1:8080', {
 			params: {
-				reqType: "submitcomplaint",
+				reqType: "submitfeedback",
 				catId: catSelected,
-				subcatId: subcatSelected,
-				description: description
+				subject: txtSubject.value,
+				description: txtDiscrip.value,
+				fromEmail: loginProfile.getEmail()
 			}
 			})
 			.then(function (response) {
@@ -49,30 +43,15 @@ const getDBData = async (options) => {
 				throw new Error(err);
 			});
 		Swal.fire({
-			title: 'Complaint submitted',
-			text: 'Your complaint will be addressed in approx hrs',
+			title: 'Feedback submitted',
+			text: 'Your feedback will be visible to everyone',
 			icon: 'success',
-			confirmButtonText: `Save`
+			confirmButtonText: 'OK'
 		}).then((result) => {
 			if (result.isConfirmed) {
 				window.location.replace("home.html");
 			}
 		});
-	}
-	else if (options.reqType == "getSubcat") {
-		var catSelected = document.getElementById("slctCat").value;
-		axios.get('http://127.0.0.1:8080', {
-			params: {
-				reqType: "getSubcat",
-				catId: catSelected
-			}
-			})
-			.then(function (response) {
-				addOptions(response.data, "subcategory");
-			})
-			.catch((err) => {
-				throw new Error(err);
-			});
 	}
 	// console.log(options.target.value);
 };
@@ -100,7 +79,6 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctCat.appendChild(createCatOption(category));
 			});
-			slctCat.appendChild(createCatOption({catDesc: "Other"}));
 		} else if (categoryList) {
 			slctCat.appendChild(createCatOption(categoryList));
 		}
@@ -122,12 +100,13 @@ const addOptions = (categoryList, selectType) => {
 
 const validateData = () => {
 	// Validation not complete
-	getDBData({reqType: "submitComplaint"});
+	console.log("heyyy heyy");
+	getDBData({reqType: "submitFeedback"});
 }
 
-const getSubcat = async () => {
-	await getDBData({reqType: "getSubcat"});
-};
+// const getSubcat = async () => {
+// 	await getDBData({reqType: "getSubcat"});
+// };
 
 var userChanged = function (user) {
 	// Check if user is logged in
@@ -146,7 +125,7 @@ function signOut() {
     auth2.signOut().then(function () {
 		console.log('User signed out.');
 		loginStatus = false;
-		window.location.replace("login.html");
+		window.location.replace("login.html?signout=true");
     });
 }
 
@@ -161,11 +140,10 @@ const init = () => {
 };
 
 const initGUI = () => {
-	document.getElementById("slctCat").addEventListener("change", getSubcat);
 	console.log(loginStatus);
 	if (loginStatus) {
 		document.getElementById("slctCat").reqType = "getSubcat";
-		document.getElementById("slctCat").addEventListener("change", getSubcat);
+		// document.getElementById("slctCat").addEventListener("change", getSubcat);
 		document.getElementById("sign-out").addEventListener("click", signOut);
 		document.getElementById("btnSubmit").addEventListener("click", validateData);
 		getDBData({reqType: "getCat"});
@@ -182,7 +160,7 @@ const initGUI = () => {
 		// 		window.location.replace("login.html");
 		// 	}
 		// });
-		window.location.replace("login.html");
+		window.location.replace("login.html?redirect=true");
 	}
 }
 

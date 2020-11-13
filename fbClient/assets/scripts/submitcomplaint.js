@@ -30,16 +30,17 @@ const getDBData = async (options) => {
 		var txtDiscrip = document.getElementById("txtDiscrip");
 		var description = "";
 		if (txtHostel.value != "") description += "Hostel: " + txtHostel.value;
-		if (txtFloor.value != "") description += " Floor: " + txtFloor.value;
-		if (txtRoom.value != "") description += " Room: " + txtRoom.value;
-		if (txtDiscrip.value != "") description += " " + txtDiscrip.value;
+		if (txtFloor.value != "") description += "; Floor: " + txtFloor.value;
+		if (txtRoom.value != "") description += "; Room: " + txtRoom.value;
+		if (txtDiscrip.value != "") description += "; " + txtDiscrip.value;
 		console.log(description);
 		axios.get('http://127.0.0.1:8080', {
 			params: {
 				reqType: "submitcomplaint",
 				catId: catSelected,
 				subcatId: subcatSelected,
-				description: description
+				description: description,
+				fromEmail: loginProfile.getEmail()
 			}
 			})
 			.then(function (response) {
@@ -52,7 +53,7 @@ const getDBData = async (options) => {
 			title: 'Complaint submitted',
 			text: 'Your complaint will be addressed in approx hrs',
 			icon: 'success',
-			confirmButtonText: `Save`
+			confirmButtonText: 'OK'
 		}).then((result) => {
 			if (result.isConfirmed) {
 				window.location.replace("home.html");
@@ -100,7 +101,6 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctCat.appendChild(createCatOption(category));
 			});
-			slctCat.appendChild(createCatOption({catDesc: "Other"}));
 		} else if (categoryList) {
 			slctCat.appendChild(createCatOption(categoryList));
 		}
@@ -113,7 +113,6 @@ const addOptions = (categoryList, selectType) => {
 			categoryList.map(category => {
 				slctSubcat.appendChild(createSubcatOption(category));
 			});
-			slctSubcat.appendChild(createSubcatOption({subcatDesc: "Other"}));
 		} else if (categoryList) {
 			slctSubcat.appendChild(createSubcatOption(categoryList.subcatDesc));
 		}
@@ -182,7 +181,7 @@ const initGUI = () => {
 		// 		window.location.replace("login.html");
 		// 	}
 		// });
-		window.location.replace("login.html");
+		window.location.replace("login.html?redirect=true");
 	}
 }
 

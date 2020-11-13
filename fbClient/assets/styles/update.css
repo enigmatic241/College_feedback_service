@@ -40,7 +40,7 @@ body{
 	background: var(--page-content-bgColor);
 }
 
-#divRollTotalContainer {
+#divRoleTotalContainer {
 	display: grid;
 	grid-template-rows: auto;
 	grid-row-gap: 40px;
@@ -49,9 +49,9 @@ body{
 	font-size: 16px;
 }
 
-.divRollContainer {
+.divRoleContainer {
 	display: grid;
-	grid-template-columns: 20% 30% 30% 10% 10%;
+	grid-template-columns: 20% 30% 30% 6% 7% 7%;
 	/* margin-top: 20px;
 	margin-bottom: 20px; */
 	grid-column-gap: 10px;
@@ -59,47 +59,79 @@ body{
 	/* font-size: 16px; */
 }
 
-.divRoll {
+.divRole {
 	overflow-x: scroll;
 }
 
-.txtRollEmail {
+.txtRoleEmail {
 	padding: 10px;
 	font-size: 16px;
 }
 
-.txtNewRollEmail {
+.txtNewRoleEmail {
 	padding: 10px;
 	font-size: 16px;
 	/* margin-right: 20px; */
 }
 
-.btnRollUpdate {
+.btnRoleUpdate {
 	background: #242e42;
 	color: #f0f1f6;
 	border: 1px solid #242e42;
 	padding: 10px;
+	width: 100%;
 	/* font-size: 16px; */
 }
 
-.btnRollAdd {
+.btnRoleAdd {
 	background: #242e42;
 	color: #f0f1f6;
 	border: 1px solid #242e42;
 	padding: 10px;
+	width: 100%;
 	/* font-size: 16px; */
 }
 
-.btnRollUpdate:active {
+.btnRoleDelete {
+	background: #ac2c15;
+	color: #f0f1f6;
+	border: 1px solid #242e42;
+	padding: 10px;
+	width: 100%;
+	/* font-size: 16px; */
+}
+
+.btnRoleUpdate:hover {
 	background: #1d2636;
 	color: #00b9eb;
 	/* font-size: 16px; */
 }
 
-.btnRollAdd:active {
+.btnRoleAdd:hover {
 	background: #1d2636;
 	color: #00b9eb;
 	/* font-size: 16px; */
+}
+
+.btnRoleDelete:hover {
+	background: #ff2600;
+	color: #f0f1f6;
+	/* font-size: 16px; */
+}
+
+input[type="button"] {
+	cursor: pointer;
+}
+
+input[type="text"]:disabled {
+	color: black;
+}
+
+input[type="button"]:disabled {
+	background: #383838;
+	color: #000000;
+	border: none;
+	cursor: not-allowed;
 }
 
 /* .divForm {
