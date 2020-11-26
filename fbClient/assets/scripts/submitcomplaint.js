@@ -119,9 +119,82 @@ const addOptions = (categoryList, selectType) => {
 	}
 };
 
+
+function checkforcat()
+{
+	var catSelected = document.getElementById("slctCat").value;
+	if(catSelected==0)
+	{
+		return true;
+	}else
+	{
+		return false;
+	}
+}
+
+
 const validateData = () => {
+
 	// Validation not complete
+	var txtHostel = document.getElementById("txtHostel");
+	var txtFloor = document.getElementById("txtFloor");
+	var txtRoom = document.getElementById("txtRoom");
+	var txtDiscrip = document.getElementById("txtDiscrip");
+	
+	var check=checkforcat();
+	if(check){
+		
+		Swal.fire({
+			title: "oops!",
+			text: "Please Select Category",
+			icon: "error",
+		  });
+	}
+	else
+	{
+
+	var regex = /^[A-Za-z0-9.,]+$/
+	let isnum = /^\d+$/
+	var Hostelcontent=isnum.test(document.getElementById("txtHostel").value);
+	var Floorcontent=isnum.test(document.getElementById("txtFloor").value);
+	var roomcontent= regex.test(document.getElementById("txtRoom").value);
+	var discontent= regex.test(document.getElementById("txtDiscrip").value);
+
+		
+	if(txtRoom.value=="" || txtDiscrip.value=="" || txtFloor==NaN || txtHostel==NaN)
+	{
+		// alert("dont leave blank");
+		Swal.fire({
+			title: "oops!",
+			text: "Hey! Don't leave blank",
+			icon: "error",
+		  });
+
+
+		// console.log("heyyy blank");
+		validate=false;
+	}
+	else if(!Hostelcontent || !Floorcontent)
+	{
+		
+		Swal.fire({
+			title: "oops!",
+			text: "Please enter numeric value in Hostel name and Floor name",
+			icon: "error",
+		  });
+	}else if(!roomcontent || !discontent)
+	{
+		Swal.fire({
+			title: "oops!",
+			text: "Special Characters are not allowed exept . and ,",
+			icon: "error",
+		  });
+	}
+	else
+	{
 	getDBData({reqType: "submitComplaint"});
+	}
+}
 }
 
 const getSubcat = async () => {

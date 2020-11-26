@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 var loginStatus;
 var loginProfile;
+var validate;
 
 const getDBData = async (options) => {
 	// console.log(options);
@@ -27,6 +28,7 @@ const getDBData = async (options) => {
 		var txtDescrip = document.getElementById("txtDiscrip");
 		console.log(txtSubject.value);
 		console.log(txtDescrip.value);
+
 		axios.get('http://127.0.0.1:8080', {
 			params: {
 				reqType: "submitfeedback",
@@ -42,6 +44,7 @@ const getDBData = async (options) => {
 			.catch((err) => {
 				throw new Error(err);
 			});
+			
 		Swal.fire({
 			title: 'Feedback submitted',
 			text: 'Your feedback will be visible to everyone',
@@ -52,7 +55,11 @@ const getDBData = async (options) => {
 				window.location.replace("home.html");
 			}
 		});
+	}else
+	{
+		alert("something went wrong");
 	}
+	// }
 	// console.log(options.target.value);
 };
 
@@ -98,11 +105,68 @@ const addOptions = (categoryList, selectType) => {
 	}
 };
 
+
+
+function checkforcat()
+{
+	var catSelected = document.getElementById("slctCat").value;
+	if(catSelected==0)
+	{
+		return true;
+	}else
+	{
+	return false;
+	}
+}
+
 const validateData = () => {
 	// Validation not complete
+	var txtSubject = document.getElementById("txtSubject");
+	var txtDescrip = document.getElementById("txtDiscrip");
+	var check=checkforcat();
+	if(check){
+		// alert("please select category");
+		Swal.fire({
+			title: "oops!",
+			text: "Please Select Category",
+			icon: "error",
+		  });
+	}
+	else
+	{
+	var regex = /^[A-Za-z0-9.,]+$/
+		
+	var discontent= regex.test(document.getElementById("txtSubject").value);
+	var subcontent= regex.test(document.getElementById("txtDiscrip").value);
+
+	
+	if(txtSubject.value=="" || txtDescrip.value=="")
+	{
+		// alert("Don't leave blank");
+		// console.log("heyyy blank");
+		Swal.fire({
+			title: "oops!",
+			text: "Hey! Don't leave Blank",
+			icon: "error",
+		  });
+		validate=false;
+	}else if (!discontent || !subcontent) {
+
+		// alert("Contains Special Characters.");
+		Swal.fire({
+			title: "oops!",
+			text: "Special Characters are not allowed exept . and ,",
+			icon: "error",
+		  });
+	}
+	else
+	{
 	console.log("heyyy heyy");
 	getDBData({reqType: "submitFeedback"});
+	validate=true;
+	}
 }
+};
 
 // const getSubcat = async () => {
 // 	await getDBData({reqType: "getSubcat"});

@@ -1,9 +1,9 @@
 <html>
     <head>
         <title>
-            Submit Feedback
+            Rules and Regulations | CFCP
         </title>
-		<link rel="stylesheet" href="assets/styles/submitfeedback.css">
+		<link rel="stylesheet" href="assets/styles/rules.css">
 		<link rel="stylesheet" href="assets/styles/header.css">
 		<script src="assets/scripts/jquery-3.4.1.min.js"></script>
 		<script src="https://apis.google.com/js/platform.js"></script>
@@ -67,138 +67,123 @@
 <!-- ----------------------------------------------- -->
   
 <header class="page-header">
-	<nav>
-	  <a href="home.html">
-		<!-- <img class="logo" src="" alt=""> for institute logo-->  
-		<h3>College Feedback & Complaint Portal</h3>
-	  </a>
-	  <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
-		<svg width="20" height="20" aria-hidden="true">
-		  <use xlink:href="#down"></use>
-		</svg>
-	  </button>
-	  <ul class="admin-menu">
-		<li class="menu-heading">
-		  <h3>User</h3>
-		</li>
+		<nav>
+		  <a href="home.html">
+			<!-- <img class="logo" src="" alt=""> for institute logo-->  
+			<h3>College Feedback & Complaint Portal</h3>
+		  </a>
+		  <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
+			<svg width="20" height="20" aria-hidden="true">
+			  <use xlink:href="#down"></use>
+			</svg>
+		  </button>
+		  <ul class="admin-menu">
+			<li class="menu-heading">
+			  <h3>User</h3>
+			</li>
+			
+			<li>
+			  <a href="#">
+				<svg>
+				  <use xlink:href="#users"></use>
+				</svg>
+				<span>Profile</span>
+			  </a>
+			</li>
 		
-		<li>
-		  <a href="#">
-			<svg>
-			  <use xlink:href="#users"></use>
-			</svg>
-			<span>Profile</span>
-		  </a>
-		</li>
-	
-		<li>
-			<a href="submitcomplaint.html">
+			<li>
+				<a href="submitcomplaint.html">
+					<svg>
+					<use xlink:href="#pages"></use>
+					</svg>
+					<span>Submit complaint</span>
+				</a>
+			</li>
+			<li>
+				<a href="submitfeedback.html">
+					<svg>
+					<use xlink:href="#comments"></use>
+					</svg>
+					<span>Submit feedback</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<svg>
+					<use xlink:href="#appearance"></use>
+					</svg>
+					<span>Rules and Regulations</span>
+				</a>
+			</li>
+			<li class="menu-heading">
+				  <h3>Settings</h3>
+			</li>
+			<!-- <li>
+			  <a href="#">
 				<svg>
-				<use xlink:href="#pages"></use>
+				  <use xlink:href="#settings"></use>
 				</svg>
-				<span>Submit complaint</span>
-			</a>
-		</li>
-		<li>
-			<a href="submitfeedback.html">
+				<span>Settings</span>
+			  </a>
+			</li> -->
+			 <li>
+			  <a href="update.html">
 				<svg>
-				<use xlink:href="#comments"></use>
+				  <use xlink:href="#collection"></use>
 				</svg>
-				<span>Submit feedback</span>
-			</a>
-		</li>
-		<li>
-			<a href="rules.html">
-				<svg>
-				<use xlink:href="#appearance"></use>
+				<span>View/Update Roles</span>
+			  </a>
+			</li>
+			<li>
+				<a>
+				<button id="sign-out">
+					<svg>
+						<use xlink:href="#options"></use>
+					</svg>
+					<span>Sign out</span>
+				</button>
+				</a>
+			</li>
+		  
+			<li>
+			  <!-- <button class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
+				<svg aria-hidden="true">
+				  <use xlink:href="#collapse"></use>
 				</svg>
-				<span>Rules and Regulations</span>
-			</a>
-		</li>
-		<li class="menu-heading">
-			  <h3>Settings</h3>
-		</li>
-		<!-- <li>
-		  <a href="#">
-			<svg>
-			  <use xlink:href="#settings"></use>
-			</svg>
-			<span>Settings</span>
-		  </a>
-		</li> -->
-		 <li>
-			<a href="update.html">
-			<svg>
-				<use xlink:href="#collection"></use>
-			</svg>
-			<span>View/Update Roles</span>
-			</a>
-		</li>
-		<li>
-			<a>
-			<button id="sign-out">
-				<svg>
-					<use xlink:href="#options"></use>
-				</svg>
-				<span>Sign out</span>
-			</button>
-			</a>
-		</li>
-	  
-		<li>
-		  <!-- <button class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
-			<svg aria-hidden="true">
-			  <use xlink:href="#collapse"></use>
-			</svg>
-			<span>Collapse</span>
-		  </button> -->
-		</li>
-	  </ul>
-	</nav>
-  </header>
+				<span>Collapse</span>
+			  </button> -->
+			</li>
+		  </ul>
+		</nav>
+	  </header>
 
 <!-- ------------------------ -->
 
 		<section class="page-content">
-			<h2>
-				Submit Feedback
-			</h2>
-			<h4>All feedback is public and can be viewed by everyone</h4>
-			<h4 id="headerWarning">Please check the box below if you wish to provide anonymous feedback</h4>
-			<div class="divForm">
-				<div>
-					Category
-				</div>
-				<div id="slctCatDiv" style="width:200px;">
-					<select id = "slctCat">
-						<option value="0">Select Category</option>
-					</select>
-				</div>
-				<!-- <div>
-					Sub-category
-				</div>
-				<div id="slctSubcatDiv" style="width:200px;">
-					<select id="slctSubcat">
-						<option value="0">Select Sub-Category</option>
-					</select>
-				</div> -->
-				<div>
-					Subject
-				</div>
-				<input type="text" id="txtSubject" placeholder="Subject">
-				<!-- <div>
-				</div> -->
+			<div id="heading">
+				<h2>
+					Rules and Regulations
+				</h2>
+			</div>
+			
+			<div id="rules">
+                <article> <b>1.  </b>This Feedback Portal is for college facilities. </article>
+				<article> <b>2.  </b> Their is one admin and different supervisior for their respective department.</article>
+				<article> <b>3.  </b>Do Not spam feedbacks and complaints. </article>
+				<article> <b>4.  </b> Minimum time for solving a complaint is 3 days.</article>
+				<article> <b>5.  </b> Rule 5</article>
+				<article> <b>6.  </b></article>
 				
-				<div>
-					Feedback
-				</div>
+				<article> <b>7.  </b></article>
+				<article> <b>8.  </b></article>
+				<article> <b>9.  </b></article>
+				<article> <b>10.  </b> </article>
+				<article> <b>11.  </b> </article>
 				
-				<textarea name="message" id="txtDiscrip" cols="30" rows="10" placeholder="Enter your text here"></textarea> 
-				<br>
-				<button id = "btnSubmit">Submit</button>
+				
 			</div>
 		</section>
-		<script src="assets/scripts/submitfeedback.js"></script>
 		<!-- <script src="assets/scripts/headerStyle.js"></script> -->
+		<!-- <script src="assets/scripts/update.js"></script> -->
 	</body>
 </html>
