@@ -134,7 +134,7 @@ const validateData = () => {
 	}
 	else
 	{
-	var regex = /^[A-Za-z0-9.,]+$/
+	var regex = /^[A-Za-z0-9. ,]+$/
 		
 	var discontent= regex.test(document.getElementById("txtSubject").value);
 	var subcontent= regex.test(document.getElementById("txtDiscrip").value);

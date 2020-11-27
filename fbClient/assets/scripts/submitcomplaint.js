@@ -153,7 +153,7 @@ const validateData = () => {
 	else
 	{
 
-	var regex = /^[A-Za-z0-9.,]+$/
+	var regex = /^[A-Za-z0-9. ,]+$/
 	let isnum = /^\d+$/
 	var Hostelcontent=isnum.test(document.getElementById("txtHostel").value);
 	var Floorcontent=isnum.test(document.getElementById("txtFloor").value);
