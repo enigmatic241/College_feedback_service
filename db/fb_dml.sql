@@ -3,9 +3,9 @@ USE feedback
 INSERT INTO category (catId, catDesc) VALUES 
 (101, "Hostel"),
 (102, "Mess"),
-(103, "Sports (Indoor)"),
-(104, "Sports (Outdoor)"),
-(105, "Other");
+(103, "Sports"),
+-- (104, "Sports (Outdoor)"),
+(104, "Other");
 
 INSERT INTO subcategory (subcatId, catId, subcatDesc, subCatType) VALUES 
 (10101, 101, "Light", 2),
@@ -20,7 +20,10 @@ INSERT INTO subcategory (subcatId, catId, subcatDesc, subCatType) VALUES
 (10202, 102, "Workers", 1),
 (10203, 102, "Chairs", 1),
 (10204, 102, "Tables", 1),
-(10205, 102, "TV", 1);
+(10205, 102, "TV", 1),
+(10301, 103, "Indoor", 1),
+(10302, 103, "Outdoor", 1),
+(10401, 104, "Other", 1);
 
 INSERT INTO role (roleId, roleDesc) VALUES
 (1, "Students"),

@@ -3,8 +3,8 @@ USE feedbacksystem
 INSERT INTO category (id, categoryname) VALUES 
 ("001", "Hostel"),
 ("001", "Mess"),
-("001", "Sports (Indoor)"),
-("001", "Sports (Outdoor)");
+("001", "Sports"),
+-- ("001", "Sports (Outdoor)");
 
 INSERT INTO subcategory (id, categoryname, subcategoryname) VALUES 
 ("0001", "Hostel", "Light"),
@@ -18,4 +18,7 @@ INSERT INTO subcategory (id, categoryname, subcategoryname) VALUES
 ("0009", "Mess", "Workers"),
 ("0010", "Mess", "Chairs"),
 ("0011", "Mess", "Tables"),
-("0012", "Mess", "TV");
+("0012", "Mess", "TV"),
+("0013", "Sports", "Indoor"),
+("0013", "Sports", "Outdoor");
+
