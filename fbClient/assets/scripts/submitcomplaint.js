@@ -161,7 +161,7 @@ const validateData = () => {
 	var discontent= regex.test(document.getElementById("txtDiscrip").value);
 
 		
-	if(txtRoom.value=="" || txtDiscrip.value=="" || txtFloor==NaN || txtHostel==NaN)
+	if(txtRoom.value=="" || txtDiscrip.value=="")
 	{
 		// alert("dont leave blank");
 		Swal.fire({
@@ -179,7 +179,7 @@ const validateData = () => {
 		
 		Swal.fire({
 			title: "oops!",
-			text: "Please enter numeric value in Hostel name and Floor name",
+			text: "Please Enter Positive Numeric Values in Hostel name and Floor name",
 			icon: "error",
 		  });
 	}else if(!roomcontent || !discontent)

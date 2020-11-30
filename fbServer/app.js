@@ -8,7 +8,7 @@ const port = 8080;
 var con = mysql.createConnection({
 	host: "0.0.0.0",
 	user: "root",
-	password: "root",
+	password: "Inferno@241",
 	database: "feedback"
 });
 
@@ -24,6 +24,7 @@ con.connect(function(err) {
 				res.send(result);
 			});
 		}
+		
 		else if (req.query.reqType == "getSubcat") {
 			if (err) throw err;
 			var sql = "SELECT subcatId, subcatDesc FROM subcategory where catId='" + req.query.catId + "'";
@@ -78,6 +79,20 @@ con.connect(function(err) {
 			var sql = "SELECT complaint.*, subcategory.*, category.* FROM complaint, subcategory, category ";
 			sql += "WHERE complaint.subcatId = subcategory.subcatId AND complaint.catId = subcategory.catId AND ";
 			sql += "category.catId = subcategory.catId ORDER BY complaint.compStatus";
+			con.query(sql, function (err, result) {
+				if (err) throw err;
+				console.log(result);
+				res.header("Access-Control-Allow-Origin", "*");
+				res.send(result);
+			});
+		}
+		else if (req.query.reqType == "getCompUser") {
+			if (err) throw err;
+			var sql = "SELECT complaint.*, subcategory.*, category.* FROM complaint, subcategory, category ";
+			sql += "WHERE complaint.subcatId = subcategory.subcatId AND complaint.catId = subcategory.catId AND ";
+			sql += "category.catId = subcategory.catId AND complaint.compEmail= '" + req.query.email;
+			sql += "' ORDER BY complaint.compStatus";
+			console.log(sql);
 			con.query(sql, function (err, result) {
 				if (err) throw err;
 				console.log(result);
@@ -147,6 +162,23 @@ con.connect(function(err) {
 			sql += "(SELECT COUNT(*) FROM fbdownvote WHERE fbdownvote.fbId = feedbacks.fbId) as downvoteCount "
 			sql += "FROM feedbacks, category "
 			sql += "WHERE category.catId = feedbacks.catId";
+			con.query(sql, function (err, result) {
+				if (err) throw err;
+				console.log(result);
+				res.header("Access-Control-Allow-Origin", "*");
+				res.send(result);
+			});
+		}
+		else if (req.query.reqType == "getFbUser") {
+			if (err) throw err;
+			var sql = "SELECT feedbacks.*, category.*, ";
+			sql += "(SELECT COUNT(*) FROM fbupvote WHERE fbupvote.fbId = feedbacks.fbId) as upvoteCount, "
+			sql += "(SELECT COUNT(*) FROM fbdownvote WHERE fbdownvote.fbId = feedbacks.fbId) as downvoteCount "
+			sql += "FROM feedbacks, category "
+			sql += "WHERE category.catId = feedbacks.catId "
+			// sql += "AND feedbacks.fbEmail='"+ req.query.email;
+			sql += "AND feedbacks.fbEmail='"+ req.query.email + "'";
+			console.log(sql);
 			con.query(sql, function (err, result) {
 				if (err) throw err;
 				console.log(result);

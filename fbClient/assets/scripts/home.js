@@ -302,6 +302,7 @@ const createFbItem = item => {
 
 const solveComplaint = (evt) => {
 	// console.log(evt.target.compId);
+	
 	getDBData({reqType: "solvecomplaint", compId: evt.target.compId});
 }
 
@@ -468,7 +469,8 @@ const initGUI = () => {
 		getDBData({reqType: "getComp"});
 		getDBData({reqType: "getFb"});
 	}
-	else {
+	else 
+	{
 		location.replace("login.html?redirect=true");
 		// Swal.fire({
 		// 	title: 'Inactive login',
