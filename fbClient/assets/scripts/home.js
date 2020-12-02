@@ -288,7 +288,17 @@ const createFbItem = item => {
 
 	const divFbDesc = document.createElement('div');
 	divFbDesc.className = "divFbDesc";
-	divFbDesc.innerHTML = item.fbDesc;
+	divFbDesc.innerHTML = "<b>Discription</b> : "+item.fbDesc;
+
+	const divfbEmail = document.createElement('div');
+	divfbEmail.className ="divfbEmail";
+	divfbEmail.innerHTML= item.fbEmail;
+	// let datetime = document.createElement('div');
+	// datetime.className="date-time";
+
+	// var dt = new Date();
+	// document.getElementsByClassName("date-time").innerHTML = dt.toLocaleString();
+
 
 	divFbItem.appendChild(divFbUpvote);
 	divFbItem.appendChild(divFbUpvoteCount);
@@ -296,13 +306,15 @@ const createFbItem = item => {
 	divFbItem.appendChild(divFbDownvoteCount);
 	divFbItem.appendChild(divFbCat);
 	divFbItem.appendChild(divFbSubj);
+	divFbItem.appendChild(divfbEmail);
+
 	divFbItem.appendChild(divFbDesc);
 	return divFbItem;
 };
 
 const solveComplaint = (evt) => {
 	// console.log(evt.target.compId);
-	
+
 	getDBData({reqType: "solvecomplaint", compId: evt.target.compId});
 }
 
@@ -342,6 +354,8 @@ const createCompItem = item => {
 	divCompDesc.innerHTML = item.compDesc;
 	const divCompStatus = document.createElement('div');
 	divCompStatus.className = "divCompStatus";
+	// let datetime = document.createElement('span');
+	// datetime.className="datetime";
 	if (item.compStatus == 1)
 		divCompStatus.innerHTML = "Overtime";
 	if (item.compStatus == 2)
@@ -349,11 +363,15 @@ const createCompItem = item => {
 	if (item.compStatus == 3)
 		divCompStatus.innerHTML = "Resolved";
 
+	// var dt = new Date();
+	// document.getElementsByClassName("datetime").innerHTML = dt.toLocaleString();
 	divComplaintItem.appendChild(divCompSolve);
 	divComplaintItem.appendChild(divCompCat);
 	divComplaintItem.appendChild(divCompSubcat);
 	divComplaintItem.appendChild(divCompDesc);
+	// divComplaintItem.appendChild(datetime);
 	divComplaintItem.appendChild(divCompStatus);
+
 	return divComplaintItem;
 };
 
