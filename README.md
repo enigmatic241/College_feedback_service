@@ -17,11 +17,15 @@ source fb_dml.sql;
 ```bash
 cd fbServer
 
+npm install
+
 npm start
 ```
 ## Start the client
 ```bash
 cd fbClient
+
+npm install
 
 npm run dev
 ```
