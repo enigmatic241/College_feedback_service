@@ -125,12 +125,12 @@ const validateData = () => {
 	var txtDescrip = document.getElementById("txtDiscrip");
 	var check=checkforcat();
 	if(check){
-		// alert("please select category");
-		Swal.fire({
-			title: "oops!",
-			text: "Please Select Category",
-			icon: "error",
-		  });
+		alertify.error("please select category");
+		// Swal.fire({
+		// 	title: "oops!",
+		// 	text: "Please Select Category",
+		// 	icon: "error",
+		//   });
 	}
 	else
 	{
@@ -142,22 +142,22 @@ const validateData = () => {
 	
 	if(txtSubject.value=="" || txtDescrip.value=="")
 	{
-		// alert("Don't leave blank");
+		alertify.error("Hey! Don't leave blank");
 		// console.log("heyyy blank");
-		Swal.fire({
-			title: "oops!",
-			text: "Hey! Don't leave Blank",
-			icon: "error",
-		  });
+		// Swal.fire({
+		// 	title: "oops!",
+		// 	text: "Hey! Don't leave Blank",
+		// 	icon: "error",
+		//   });
 		validate=false;
 	}else if (!discontent || !subcontent) {
 
-		// alert("Contains Special Characters.");
-		Swal.fire({
-			title: "oops!",
-			text: "Special Characters are not allowed exept . and ,",
-			icon: "error",
-		  });
+		alertify.error("Special Characters are not allowed exept . and ,");
+		// Swal.fire({
+		// 	title: "oops!",
+		// 	text: "Special Characters are not allowed exept . and ,",
+		// 	icon: "error",
+		//   });
 	}
 	else
 	{

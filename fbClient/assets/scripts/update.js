@@ -78,6 +78,10 @@ const getDBData = async (options) => {
 
 function roleUpdate(evt) {
 	var newEmail = document.getElementById("txt" + evt.target.updateId);
+
+	if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(newEmail.value))
+	{
+
 	Swal.fire({
 		title: 'Update supervisor',
 		text: 'confirm updating ' + newEmail,
@@ -88,6 +92,9 @@ function roleUpdate(evt) {
 			getDBData({reqType: "updateRole", catId: evt.target.catId, id: evt.target.updateId, newEmail: newEmail.value});
 		}
 	});
+}else{
+	alertify.error("please enter a valid email address");
+}
 }
 
 function roleAdd(evt) {
@@ -103,17 +110,27 @@ function roleAdd(evt) {
 			break;
 		}
 	}
+	if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(newEmail.value))
+	{
+		
+		Swal.fire({
+			title: 'Add supervisor',
+			text: 'confirm adding ' + newEmail.value,
+			icon: 'question',
+			confirmButtonText: 'OK'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				getDBData({reqType: "addRole", id: newEmail.catId, newEmail: newEmail.value});
+			}
+		});
+	}
+	  else
+	{
+		alertify.error("You have entered an invalid email address!");
+	  
+  }
 	// console.log(newEmail);
-	Swal.fire({
-		title: 'Add supervisor',
-		text: 'confirm adding ' + newEmail.value,
-		icon: 'question',
-		confirmButtonText: 'OK'
-	}).then((result) => {
-		if (result.isConfirmed) {
-			getDBData({reqType: "addRole", id: newEmail.catId, newEmail: newEmail.value});
-		}
-	});
+
 }
 
 function roleDelete(evt) {
@@ -153,6 +170,7 @@ const createUpdateOption = item => {
 	divNewText.className = "divNewText";
 	const txtNewRoleEmail = document.createElement('input');
 	txtNewRoleEmail.type = "text";
+	txtNewRoleEmail.placeholder="Enter New Supervisor Email";
 	txtNewRoleEmail.className = "txtNewRoleEmail";
 	txtNewRoleEmail.id = "txt" + item.catRoleId;
 	txtNewRoleEmail.catId = item.catId;

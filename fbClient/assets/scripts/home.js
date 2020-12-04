@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 var loginStatus;
 var loginProfile;
 var upvoteStatus;
+var supervisiors;
 
 const getDBData = async (options) => {
 	if (options.reqType == "getCat") {
@@ -79,6 +80,50 @@ const getDBData = async (options) => {
 				throw new Error(err);
 			});
 	}
+	else if (options.reqType == "getCompSearch") {
+		// console.log(options.compId);
+		
+		axios.get('http://127.0.0.1:8080', {
+			params: {
+				reqType: "getCompSearch",
+				catId: options.catId,
+				subcatId:options.subcatId,
+				email:options.email	
+		
+			}
+			})
+			.then(function (response) {
+				// console.log("heyy, heyy");
+				document.getElementById("divComplaints").innerHTML = "";
+				// getDBData({reqType: "getComp"});
+				populateList(response.data, "complaint");
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
+	}
+
+	if (options.reqType == "getCatRole") {
+		axios.get('http://127.0.0.1:8080', {
+			params: {
+				reqType: "getCatRole",
+				permissionLevel: "admin"
+			}
+			})
+			.then(function (response) {
+				// addOptions(response.data, "categoryroles");
+				// console.log(response.data);
+				supervisiors=response.data;
+				// supervisiors=supervisior;
+				// console.log(supervisiors);
+				// return supervisior;
+				
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
+	}
+
 	else if (options.reqType == "votecheck") {
 		axios.get('http://127.0.0.1:8080', {
 			params: {
@@ -237,6 +282,21 @@ const downvote = evt => {
 	}
 }
 
+const searchBycat = () => {
+	var searchItem = document.getElementById("searchByEmail").value;
+	var catSelected = document.getElementById("slctCat").value;
+	var subcatSelected = document.getElementById("slctSubcat").value;
+
+	console.log(searchItem);
+	console.log(catSelected);
+	console.log(subcatSelected);
+
+	getDBData({reqType:"getCompSearch", catId:catSelected , subcatId: subcatSelected, email:searchItem});
+}
+
+var btnsearch= document.getElementById('searchbtn');
+btnsearch.addEventListener("click",searchBycat);
+
 const createFbItem = item => {
 	// console.log(item);
 	const divFbItem = document.createElement('div');
@@ -293,11 +353,7 @@ const createFbItem = item => {
 	const divfbEmail = document.createElement('div');
 	divfbEmail.className ="divfbEmail";
 	divfbEmail.innerHTML= item.fbEmail;
-	// let datetime = document.createElement('div');
-	// datetime.className="date-time";
 
-	// var dt = new Date();
-	// document.getElementsByClassName("date-time").innerHTML = dt.toLocaleString();
 
 
 	divFbItem.appendChild(divFbUpvote);
@@ -318,6 +374,8 @@ const solveComplaint = (evt) => {
 	getDBData({reqType: "solvecomplaint", compId: evt.target.compId});
 }
 
+	getDBData({reqType:"getCatRole"});
+
 const createCompItem = item => {
 	// console.log(item);
 	const divComplaintItem = document.createElement('div');
@@ -328,6 +386,7 @@ const createCompItem = item => {
 	btnCompSolve.type = "button";
 	btnCompSolve.className = "btnCompSolve";
 	btnCompSolve.compId = item.compId;
+	
 	if (item.compStatus == 3) {
 		divComplaintItem.style.backgroundColor = "#9aeca5";
 		btnCompSolve.value = "Solved";
@@ -335,12 +394,44 @@ const createCompItem = item => {
 	}
 	if (item.compStatus == 2) {
 		btnCompSolve.value = "Solve";
-		btnCompSolve.addEventListener("click", solveComplaint);
+		var solver = loginProfile.getEmail();
+		btnCompSolve.disabled="true";
+		
+		for(var i=0; i<supervisiors.length; i++)
+		{
+			
+			if(supervisiors[i].catRoleEmail==solver && supervisiors[i].catId==item.catId)
+			{
+				
+				
+				btnCompSolve.disabled=false;
+				
+				btnCompSolve.addEventListener("click", solveComplaint);
+		
+			}
+		}
+		
 	}
 	if (item.compStatus == 1) {
 		divComplaintItem.style.backgroundColor = "#ec9d9a";
 		btnCompSolve.value = "Solve";
-		btnCompSolve.addEventListener("click", solveComplaint);
+		var solver = loginProfile.getEmail();
+		
+		btnCompSolve.disabled="true";
+		for(var i=0; i<supervisiors.length; i++)
+		{
+			
+			if(supervisiors[i].catRoleEmail==solver && supervisiors[i].catId==item.catId)
+			{
+				// console.log("heyyy heyyyyy");
+				
+				btnCompSolve.disabled=false;
+				
+				btnCompSolve.addEventListener("click", solveComplaint);
+		
+			}
+		}
+		
 	}
 	divCompSolve.appendChild(btnCompSolve);
 	const divCompCat = document.createElement('div');
@@ -354,8 +445,7 @@ const createCompItem = item => {
 	divCompDesc.innerHTML = item.compDesc;
 	const divCompStatus = document.createElement('div');
 	divCompStatus.className = "divCompStatus";
-	// let datetime = document.createElement('span');
-	// datetime.className="datetime";
+	
 	if (item.compStatus == 1)
 		divCompStatus.innerHTML = "Overtime";
 	if (item.compStatus == 2)
@@ -363,13 +453,11 @@ const createCompItem = item => {
 	if (item.compStatus == 3)
 		divCompStatus.innerHTML = "Resolved";
 
-	// var dt = new Date();
-	// document.getElementsByClassName("datetime").innerHTML = dt.toLocaleString();
+	
 	divComplaintItem.appendChild(divCompSolve);
 	divComplaintItem.appendChild(divCompCat);
 	divComplaintItem.appendChild(divCompSubcat);
 	divComplaintItem.appendChild(divCompDesc);
-	// divComplaintItem.appendChild(datetime);
 	divComplaintItem.appendChild(divCompStatus);
 
 	return divComplaintItem;

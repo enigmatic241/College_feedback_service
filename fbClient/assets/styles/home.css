@@ -147,6 +147,7 @@ input[type="button"]:disabled {
 	box-shadow: #7889a4 1px;
 	border-radius: var(--border-radius);
 	height: 15%;
+	/* overflow-y: initial; */
 }
 
 .divCompSolve {

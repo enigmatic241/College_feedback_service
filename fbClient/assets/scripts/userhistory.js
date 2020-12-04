@@ -2,7 +2,7 @@ import axios from 'axios';
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import { async } from 'regenerator-runtime/runtime';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 var loginStatus;
 var loginProfile;
@@ -53,6 +53,29 @@ const getDBData = async (options) => {
 				throw new Error(err);
 			});
 	}
+	else if (options.reqType == "getCompSearch") {
+		// console.log(options.compId);
+		
+		axios.get('http://127.0.0.1:8080', {
+			params: {
+				reqType: "getCompSearch",
+				catId: options.catId,
+				subcatId:options.subcatId,
+				email:options.email	
+		
+			}
+			})
+			.then(function (response) {
+				// console.log("heyy, heyy");
+				document.getElementById("divComplaints").innerHTML = "";
+				// getDBData({reqType: "getComp"});
+				populateList(response.data, "complaint");
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
+	}
+
 	else if (options.reqType == "getFbUser") {
 		axios.get('http://127.0.0.1:8080', {
 			params: {
@@ -70,6 +93,21 @@ const getDBData = async (options) => {
 	}
 	
 };
+
+const searchBycat = () => {
+	var searchItem = document.getElementById("searchByEmail").value;
+	var catSelected = document.getElementById("slctCat").value;
+	var subcatSelected = document.getElementById("slctSubcat").value;
+
+	console.log(searchItem);
+	console.log(catSelected);
+	console.log(subcatSelected);
+
+	getDBData({reqType:"getCompSearch", catId:catSelected , subcatId: subcatSelected, email:loginProfile.getEmail()});
+}
+
+var btnsearch= document.getElementById('searchbtn');
+btnsearch.addEventListener("click",searchBycat);
 
 
 const createFbItem = item => {

@@ -144,11 +144,8 @@ const validateData = () => {
 	var check=checkforcat();
 	if(check){
 		
-		Swal.fire({
-			title: "oops!",
-			text: "Please Select Category",
-			icon: "error",
-		  });
+		
+		alertify.error("Ooops! Please Select Category");
 	}
 	else
 	{
@@ -163,36 +160,22 @@ const validateData = () => {
 		
 	if(txtRoom.value=="" || txtDiscrip.value=="")
 	{
-		// alert("dont leave blank");
-		Swal.fire({
-			title: "oops!",
-			text: "Hey! Don't leave blank",
-			icon: "error",
-		  });
-
+		
+		alertify.error("Hey! Don't Leave Blank");
 
 		// console.log("heyyy blank");
 		validate=false;
 	}
 	else if(!Hostelcontent || !Floorcontent)
 	{
-		
-		Swal.fire({
-			title: "oops!",
-			text: "Please Enter Positive Numeric Values in Hostel name and Floor name",
-			icon: "error",
-		  });
+			alertify.error("Please Enter Positive Numeric Values in Hostel name and Floor name");
 	}else if(!roomcontent || !discontent)
 	{
-		Swal.fire({
-			title: "oops!",
-			text: "Special Characters are not allowed exept . and ,",
-			icon: "error",
-		  });
+		alertify.error("Special Characters are not allowed exept . and ,");
 	}
 	else
 	{
-	getDBData({reqType: "submitComplaint"});
+	     getDBData({reqType: "submitComplaint"});
 	}
 }
 }

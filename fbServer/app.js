@@ -100,6 +100,27 @@ con.connect(function(err) {
 				res.send(result);
 			});
 		}
+
+		// =======================================seach by cat==========================================
+		else if (req.query.reqType == "getCompSearch") {
+			if (err) throw err;
+			var sql = "SELECT complaint.*, subcategory.*, category.* FROM complaint, subcategory, category ";
+			sql += "WHERE complaint.subcatId = subcategory.subcatId AND complaint.catId = subcategory.catId AND category.catId = subcategory.catId ";
+			if (req.query.catId != 0)
+				sql += " AND complaint.catId= " + req.query.catId;
+			if (req.query.subcatId != 0)
+				sql += " AND complaint.subcatId= " + req.query.subcatId;
+			if (req.query.email != "")
+				sql += " AND complaint.compEmail= '" + req.query.email + "'";
+			sql += " ORDER BY complaint.compStatus";
+			console.log(sql);
+			con.query(sql, function (err, result) {
+				if (err) throw err;
+				console.log(result);
+				res.header("Access-Control-Allow-Origin", "*");
+				res.send(result);
+			});
+		}
 		else if (req.query.reqType == "getCatRole") {
 			if (err) throw err;
 			var sql = "SELECT categorysupervisor.*, category.* FROM category ";

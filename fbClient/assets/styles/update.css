@@ -62,10 +62,24 @@ body{
 .divRole {
 	overflow-x: scroll;
 }
+.txtNewRoleEmail{
+	
+	box-sizing: border-box;
+	border: 3px solid #ccc;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+	outline: none;
+  }
+  
+.txtNewRoleEmail:focus {
+	border: 3px solid #555;
+  }
 
 .txtRoleEmail {
 	padding: 10px;
+	/* border-bottom:; */
 	font-size: 16px;
+	border: 1px solid rgb(179, 187, 196);
 }
 
 .txtNewRoleEmail {
