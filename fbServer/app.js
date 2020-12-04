@@ -8,7 +8,7 @@ const port = 8080;
 var con = mysql.createConnection({
 	host: "0.0.0.0",
 	user: "root",
-	password: "Inferno@241",
+	password: "root",
 	database: "feedback"
 });
 
